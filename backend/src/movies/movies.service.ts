@@ -1,18 +1,50 @@
-import { Injectable, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import { Injectable, NotFoundException, UnauthorizedException, BadRequestException, ConflictException } from '@nestjs/common';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Movie } from './entities/movie.entity';
 import { Model, Types } from 'mongoose';
+import { s3 } from 'src/config/s3.config';
 
 @Injectable()
 export class MoviesService {
   constructor(@InjectModel(Movie.name) private MovieModel: Model<Movie>) { }
 
-  async create(createMovieDto: CreateMovieDto) {
+  async uploadToS3(file: Express.Multer.File): Promise<string> {
+    const bucketName = process.env.AWS_S3_BUCKET_NAME;
+
+    if (!bucketName) {
+      throw new BadRequestException('AWS S3 bucket name is not configured');
+    }
+
+    const uploadParams = {
+      Bucket: bucketName,
+      Key: `movies/${Date.now()}-${file.originalname}`,
+      Body: file.buffer,
+      ContentType: file.mimetype,
+    };
+
+    const result = await s3.upload(uploadParams).promise();
+    return result.Location;
+  }
+
+  async create(createMovieDto: CreateMovieDto, file?: Express.Multer.File) {
     try {
-      return await this.MovieModel.create(createMovieDto);
+      let coverUrl = '';
+      if (file) {
+        coverUrl = await this.uploadToS3(file);
+      }
+
+      const newMovie = new this.MovieModel({
+        ...createMovieDto,
+        cover: coverUrl,
+      });
+
+      return await newMovie.save();
     } catch (error) {
+      if (error.code === 11000) {
+        throw new ConflictException('Movie Already Exists');
+      }
       throw error;
     }
   }

@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, MinLength, IsDateString, IsMongoId } from 'class-validator';
+import { IsString, IsNotEmpty, MinLength, IsDateString, IsMongoId, IsOptional } from 'class-validator';
 
 export class CreateMovieDto {
     @IsString()
@@ -9,8 +9,8 @@ export class CreateMovieDto {
     @IsDateString({}, { message: 'Publish date must be a valid date string (e.g., 2024-07-16)' })
     publishDate: string;
 
+    @IsOptional()
     @IsString()
-    @IsNotEmpty({ message: 'Cover image URL is required' })
     cover: string;
 
     createdBy: string;
