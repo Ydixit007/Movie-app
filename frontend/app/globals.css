@@ -1,1 +1,127 @@
 @import "tailwindcss";
+
+@theme {
+  /* Colors from your design system */
+  --color-primary: #4ADE80;
+  --color-error: #F87171;
+  --color-background: #1E3A5F;
+  --color-input: #2D5F7F;
+  --color-card: #1A4D6D;
+  --color-dark: #1F2937;
+  --color-dark-secondary: #374151;
+  
+  /* Typography - Font Family */
+  --font-sans: 'Montserrat', sans-serif;
+  
+  /* Font Sizes (based on your typography guide) */
+  --font-size-heading-1: 64px;
+  --font-size-heading-2: 48px;
+  --font-size-heading-3: 32px;
+  --font-size-heading-4: 24px;
+  --font-size-heading-5: 20px;
+  --font-size-heading-6: 16px;
+  --font-size-body-large: 20px;
+  --font-size-body: 16px;
+  --font-size-body-small: 14px;
+  --font-size-body-xs: 12px;
+  --font-size-caption: 14px;
+  
+  /* Line Heights */
+  --line-height-heading-1: 80px;
+  --line-height-heading-2: 56px;
+  --line-height-heading-3: 40px;
+  --line-height-heading-4: 32px;
+  --line-height-heading-5: 24px;
+  --line-height-heading-6: 24px;
+  --line-height-body-large: 32px;
+  --line-height-body: 24px;
+  --line-height-body-small: 24px;
+  --line-height-body-xs: 24px;
+  --line-height-caption: 16px;
+  
+  /* Font Weights */
+  --font-weight-regular: 400;
+  --font-weight-semibold: 600;
+  --font-weight-bold: 700;
+  
+  /* Spacing (8px system) */
+  --spacing-2: 2px;
+  --spacing-4: 4px;
+  --spacing-8: 8px;
+  --spacing-12: 12px;
+  --spacing-16: 16px;
+  --spacing-24: 24px;
+  --spacing-32: 32px;
+  --spacing-40: 40px;
+  --spacing-48: 48px;
+  --spacing-64: 64px;
+  --spacing-80: 80px;
+  --spacing-120: 120px;
+  --spacing-160: 160px;
+  
+  /* Max Width */
+  --width-container: 1440px;
+  
+  /* Grid */
+  --columns-12: repeat(12, 1fr);
+  
+  /* Gutter */
+  --gap-gutter: 24px;
+}
+
+@layer base {
+  body {
+    font-family: var(--font-sans);
+    background-color: var(--color-dark);
+    color: white;
+  }
+  
+  h1 {
+    font-size: var(--font-size-heading-1);
+    line-height: var(--line-height-heading-1);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  h2 {
+    font-size: var(--font-size-heading-2);
+    line-height: var(--line-height-heading-2);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  h3 {
+    font-size: var(--font-size-heading-3);
+    line-height: var(--line-height-heading-3);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  h4 {
+    font-size: var(--font-size-heading-4);
+    line-height: var(--line-height-heading-4);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  h5 {
+    font-size: var(--font-size-heading-5);
+    line-height: var(--line-height-heading-5);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  h6 {
+    font-size: var(--font-size-heading-6);
+    line-height: var(--line-height-heading-6);
+    font-weight: var(--font-weight-bold);
+  }
+}
+
+@layer components {
+  .container-grid {
+    max-width: var(--width-container);
+    margin-left: auto;
+    margin-right: auto;
+    padding-left: var(--spacing-120);
+    padding-right: var(--spacing-120);
+    display: grid;
+    grid-template-columns: var(--columns-12);
+    gap: var(--gap-gutter);
+  }
+}
