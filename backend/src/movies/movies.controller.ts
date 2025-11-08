@@ -4,7 +4,6 @@ import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
 import { AuthGuard } from 'src/auth/auth.guard';
 import { FileInterceptor } from '@nestjs/platform-express';
-import { ConfigService } from '@nestjs/config';
 
 @Controller('movies')
 export class MoviesController {
@@ -29,8 +28,14 @@ export class MoviesController {
 
   @UseGuards(AuthGuard)
   @Patch('update/:id')
-  update(@Request() req, @Param('id') id: string, @Body() dto: UpdateMovieDto) {
-    return this.moviesService.update(id, dto, req.user.sub);
+  @UseInterceptors(FileInterceptor('cover'))
+  update(
+    @Request() req,
+    @Param('id') id: string,
+    @Body() dto: UpdateMovieDto,
+    @UploadedFile() file?: Express.Multer.File
+  ) {
+    return this.moviesService.update(id, dto, req.user.sub, file);
   }
 
   @UseGuards(AuthGuard)

@@ -28,6 +28,29 @@ export class MoviesService {
     return result.Location;
   }
 
+  async deleteFromS3(fileUrl: string): Promise<void> {
+    if (!fileUrl) return;
+
+    const bucketName = process.env.AWS_S3_BUCKET_NAME;
+
+    if (!bucketName) {
+      throw new BadRequestException('AWS S3 bucket name is not configured');
+    }
+
+    try {
+      const url = new URL(fileUrl);
+      const key = url.pathname.substring(1);
+      const deleteParams = {
+        Bucket: bucketName,
+        Key: key,
+      };
+
+      await s3.deleteObject(deleteParams).promise();
+    } catch (error) {
+      console.error('Error deleting file from S3:', error);
+    }
+  }
+
   async create(createMovieDto: CreateMovieDto, file?: Express.Multer.File) {
     try {
       let coverUrl = '';
@@ -53,7 +76,7 @@ export class MoviesService {
     return await this.MovieModel.find({ createdBy: userId });
   }
 
-  async update(id: string, updateMovieDto: UpdateMovieDto, userId: string) {
+  async update(id: string, updateMovieDto: UpdateMovieDto, userId: string, file?: Express.Multer.File) {
     if (!Types.ObjectId.isValid(id)) {
       throw new NotFoundException('Invalid movie ID');
     }
@@ -67,10 +90,23 @@ export class MoviesService {
       throw new UnauthorizedException('You are not authorized to update this movie');
     }
 
-    const updated = await this.MovieModel.findByIdAndUpdate(id, updateMovieDto, {
-      new: true,
-      runValidators: true,
-    });
+    let coverUrl = movie.cover;
+    if (file) {
+      if (movie.cover) {
+        await this.deleteFromS3(movie.cover);
+      }
+
+      coverUrl = await this.uploadToS3(file);
+    }
+
+    const updated = await this.MovieModel.findByIdAndUpdate(
+      id,
+      { ...updateMovieDto, cover: coverUrl },
+      {
+        new: true,
+        runValidators: true,
+      }
+    );
 
     return updated;
   }
@@ -87,6 +123,10 @@ export class MoviesService {
 
     if (movie.createdBy.toString() !== userId) {
       throw new UnauthorizedException('You are not authorized to delete this movie');
+    }
+
+    if (movie.cover) {
+      await this.deleteFromS3(movie.cover);
     }
 
     await this.MovieModel.findByIdAndDelete(id);
