@@ -1,4 +1,4 @@
-import axios, { AxiosError, AxiosRequestConfig } from 'axios';
+import axios from 'axios';
 
 // Create axios instance with proper configuration
 const axiosInstance = axios.create({
@@ -17,7 +17,7 @@ const isAuthPage = () => {
 };
 
 axiosInstance.interceptors.request.use(
-    (config: AxiosRequestConfig) => {
+    (config) => {
         // Only add token if we're not on auth pages
         if (typeof window !== 'undefined' && !isAuthPage()) {
             const token = localStorage.getItem('authToken');
@@ -27,14 +27,14 @@ axiosInstance.interceptors.request.use(
         }
         return config;
     },
-    (error: AxiosError) => {
+    (error) => {
         return Promise.reject(error);
     }
 );
 
 axiosInstance.interceptors.response.use(
     (response) => response,
-    (error: AxiosError) => {
+    (error) => {
         if (error.response) {
             switch (error.response.status) {
                 case 401:

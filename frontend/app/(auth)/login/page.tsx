@@ -49,7 +49,7 @@ export default function SignInPage() {
                 toast.success('Logged in successfully!');
                 router.push('/');
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error('Login error:', error);
 
             if (error) {

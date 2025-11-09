@@ -41,7 +41,7 @@ export default function SignInPage() {
                 toast.success('Account created successfully!');
                 router.push('/');
             }
-        } catch (error) {
+        } catch (error: any) {
             console.error('Sign up error:', error);
 
             if (error) {
