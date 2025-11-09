@@ -2,13 +2,13 @@
 
 @theme {
   /* Colors from your design system */
-  --color-primary: #4ADE80;
-  --color-error: #F87171;
-  --color-background: #1E3A5F;
-  --color-input: #2D5F7F;
-  --color-card: #1A4D6D;
-  --color-dark: #1F2937;
-  --color-dark-secondary: #374151;
+  --color-primary: #2BD17E;
+  --color-error: #EB5757;
+  --color-background: #093545;
+  --color-input: #224957;
+  --color-card: #092C39;
+  --color-dark: #093545;
+  --color-dark-secondary: #093545;
   
   /* Typography - Font Family */
   --font-sans: 'Montserrat', sans-serif;
@@ -124,4 +124,196 @@
     grid-template-columns: var(--columns-12);
     gap: var(--gap-gutter);
   }
+  
+  /* Typography utility classes */
+  .text-heading-1 {
+    font-size: var(--font-size-heading-1);
+    line-height: var(--line-height-heading-1);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  .text-heading-2 {
+    font-size: var(--font-size-heading-2);
+    line-height: var(--line-height-heading-2);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  .text-heading-3 {
+    font-size: var(--font-size-heading-3);
+    line-height: var(--line-height-heading-3);
+    font-weight: var(--font-weight-semibold);
+  }
+  
+  .text-heading-4 {
+    font-size: var(--font-size-heading-4);
+    line-height: var(--line-height-heading-4);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .text-heading-5 {
+    font-size: var(--font-size-heading-5);
+    line-height: var(--line-height-heading-5);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .text-heading-6 {
+    font-size: var(--font-size-heading-6);
+    line-height: var(--line-height-heading-6);
+    font-weight: var(--font-weight-bold);
+  }
+  
+  .text-body-large {
+    font-size: var(--font-size-body-large);
+    line-height: var(--line-height-body-large);
+    font-weight: var(--font-weight-regular);
+  }
+  
+  .text-body {
+    font-size: var(--font-size-body);
+    line-height: var(--line-height-body);
+    font-weight: var(--font-weight-regular);
+  }
+  
+  .text-body-small {
+    font-size: var(--font-size-body-small);
+    line-height: var(--line-height-body-small);
+    font-weight: var(--font-weight-regular);
+  }
+  
+  .text-body-xs {
+    font-size: var(--font-size-body-xs);
+    line-height: var(--line-height-body-xs);
+    font-weight: var(--font-weight-regular);
+  }
+  
+  .text-caption {
+    font-size: var(--font-size-caption);
+    line-height: var(--line-height-caption);
+    font-weight: var(--font-weight-regular);
+  }
+  
+  /* Button components */
+  .btn-primary {
+    background-color: var(--color-primary);
+    color: #000;
+    padding: var(--spacing-12) var(--spacing-24);
+    border-radius: 8px;
+    font-weight: var(--font-weight-semibold);
+    transition: opacity 0.2s;
+  }
+  
+  .btn-primary:hover {
+    opacity: 0.9;
+  }
+  
+  .btn-error {
+    background-color: var(--color-error);
+    color: white;
+    padding: var(--spacing-12) var(--spacing-24);
+    border-radius: 8px;
+    font-weight: var(--font-weight-semibold);
+    transition: opacity 0.2s;
+  }
+  
+  .btn-error:hover {
+    opacity: 0.9;
+  }
+  
+  /* Card component */
+  .card {
+    background-color: var(--color-card);
+    padding: var(--spacing-32);
+    border-radius: 12px;
+  }
+  
+  /* Input component */
+  .input {
+    width: 100%;
+    background-color: var(--color-input);
+    color: white;
+    padding: var(--spacing-12) var(--spacing-16);
+    border-radius: 8px;
+    border: 2px solid transparent;
+    outline: none;
+    transition: border-color 0.2s;
+  }
+  
+  .input:focus {
+    border-color: var(--color-primary);
+  }
+  
+  .input::placeholder {
+    color: rgba(255, 255, 255, 0.5);
+  }
+}
+
+@layer utilities {
+  /* Spacing utilities using your 8px system */
+  .p-2 { padding: var(--spacing-2); }
+  .p-4 { padding: var(--spacing-4); }
+  .p-8 { padding: var(--spacing-8); }
+  .p-12 { padding: var(--spacing-12); }
+  .p-16 { padding: var(--spacing-16); }
+  .p-24 { padding: var(--spacing-24); }
+  .p-32 { padding: var(--spacing-32); }
+  .p-40 { padding: var(--spacing-40); }
+  .p-48 { padding: var(--spacing-48); }
+  .p-64 { padding: var(--spacing-64); }
+  .p-80 { padding: var(--spacing-80); }
+  .p-120 { padding: var(--spacing-120); }
+  .p-160 { padding: var(--spacing-160); }
+  
+  .m-2 { margin: var(--spacing-2); }
+  .m-4 { margin: var(--spacing-4); }
+  .m-8 { margin: var(--spacing-8); }
+  .m-12 { margin: var(--spacing-12); }
+  .m-16 { margin: var(--spacing-16); }
+  .m-24 { margin: var(--spacing-24); }
+  .m-32 { margin: var(--spacing-32); }
+  .m-40 { margin: var(--spacing-40); }
+  .m-48 { margin: var(--spacing-48); }
+  .m-64 { margin: var(--spacing-64); }
+  .m-80 { margin: var(--spacing-80); }
+  .m-120 { margin: var(--spacing-120); }
+  .m-160 { margin: var(--spacing-160); }
+  
+  /* Margin/Padding directional */
+  .mt-8 { margin-top: var(--spacing-8); }
+  .mt-16 { margin-top: var(--spacing-16); }
+  .mt-24 { margin-top: var(--spacing-24); }
+  .mt-32 { margin-top: var(--spacing-32); }
+  .mt-48 { margin-top: var(--spacing-48); }
+  .mt-64 { margin-top: var(--spacing-64); }
+  
+  .mb-8 { margin-bottom: var(--spacing-8); }
+  .mb-16 { margin-bottom: var(--spacing-16); }
+  .mb-24 { margin-bottom: var(--spacing-24); }
+  .mb-32 { margin-bottom: var(--spacing-32); }
+  .mb-48 { margin-bottom: var(--spacing-48); }
+  .mb-64 { margin-bottom: var(--spacing-64); }
+  
+  /* Color utilities */
+  .bg-primary { background-color: var(--color-primary); }
+  .bg-error { background-color: var(--color-error); }
+  .bg-background { background-color: var(--color-background); }
+  .bg-input { background-color: var(--color-input); }
+  .bg-card { background-color: var(--color-card); }
+  .bg-dark { background-color: var(--color-dark); }
+  
+  .text-primary { color: var(--color-primary); }
+  .text-error { color: var(--color-error); }
+  
+  /* Grid column spans */
+  .col-span-1 { grid-column: span 1; }
+  .col-span-2 { grid-column: span 2; }
+  .col-span-3 { grid-column: span 3; }
+  .col-span-4 { grid-column: span 4; }
+  .col-span-5 { grid-column: span 5; }
+  .col-span-6 { grid-column: span 6; }
+  .col-span-7 { grid-column: span 7; }
+  .col-span-8 { grid-column: span 8; }
+  .col-span-9 { grid-column: span 9; }
+  .col-span-10 { grid-column: span 10; }
+  .col-span-11 { grid-column: span 11; }
+  .col-span-12 { grid-column: span 12; }
 }
