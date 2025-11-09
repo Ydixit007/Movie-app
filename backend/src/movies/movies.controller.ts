@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, UseInterceptors, UploadedFile } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, Request, UseInterceptors, UploadedFile, Query } from '@nestjs/common';
 import { MoviesService } from './movies.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
 import { UpdateMovieDto } from './dto/update-movie.dto';
@@ -22,8 +22,8 @@ export class MoviesController {
 
   @UseGuards(AuthGuard)
   @Get("all")
-  findAll(@Request() req) {
-    return this.moviesService.findAll(req.user.sub);
+  findAll(@Request() req, @Query('page') page = 1, @Query('limit') limit = 8) {
+    return this.moviesService.findAll(req.user.sub, +page, +limit);
   }
 
   @UseGuards(AuthGuard)

@@ -72,9 +72,25 @@ export class MoviesService {
     }
   }
 
-  async findAll(userId: string) {
-    return await this.MovieModel.find({ createdBy: userId });
+  async findAll(userId: string, page: number, limit: number) {
+    const skip = (page - 1) * limit;
+
+    const [movies, total] = await Promise.all([
+      this.MovieModel.find({ createdBy: userId })
+        .skip(skip)
+        .limit(limit)
+        .sort({ createdAt: -1 }), // optional sorting
+      this.MovieModel.countDocuments({ createdBy: userId }),
+    ]);
+
+    return {
+      data: movies,
+      total,
+      page,
+      totalPages: Math.ceil(total / limit),
+    };
   }
+
 
   async update(id: string, updateMovieDto: UpdateMovieDto, userId: string, file?: Express.Multer.File) {
     if (!Types.ObjectId.isValid(id)) {
