@@ -27,6 +27,12 @@ export class MoviesController {
   }
 
   @UseGuards(AuthGuard)
+  @Get(':id')
+  findOne(@Param('id') id: string, @Request() req) {
+    return this.moviesService.findOne(id, req.user.sub);
+  }
+
+  @UseGuards(AuthGuard)
   @Patch('update/:id')
   @UseInterceptors(FileInterceptor('cover'))
   update(

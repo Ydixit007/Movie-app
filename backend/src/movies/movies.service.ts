@@ -91,6 +91,21 @@ export class MoviesService {
     };
   }
 
+  async findOne(id: string, userId: string) {
+    if (!Types.ObjectId.isValid(id)) {
+      throw new NotFoundException('Invalid movie ID');
+    }
+
+    const movie = await this.MovieModel.findOne({ _id: id, createdBy: userId });
+
+    if (!movie) {
+      throw new NotFoundException('Movie not found or not authorized');
+    }
+
+    return movie;
+  }
+
+
 
   async update(id: string, updateMovieDto: UpdateMovieDto, userId: string, file?: Express.Multer.File) {
     if (!Types.ObjectId.isValid(id)) {
