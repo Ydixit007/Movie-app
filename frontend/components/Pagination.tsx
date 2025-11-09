@@ -2,9 +2,10 @@ interface PaginationProps {
     currentPage: number;
     totalPages: number;
     onPageChange: (page: number) => void;
+    className?: string;
 }
 
-export function Pagination({ currentPage, totalPages, onPageChange }: PaginationProps) {
+export function Pagination({ currentPage, totalPages, onPageChange, className = "" }: PaginationProps) {
     const handlePrev = () => {
         if (currentPage > 1) {
             onPageChange(currentPage - 1);
@@ -37,11 +38,11 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
     const visiblePages = getVisiblePages();
 
     return (
-        <div className="flex items-center justify-center gap-12 md:gap-16 mt-48 md:mt-64 mb-24 md:mb-32">
+        <div className={`flex items-center justify-center gap-12 md:gap-16 mt-48 md:mt-64 mb-24 md:mb-32 ${className}`}>
             <button
                 onClick={handlePrev}
                 disabled={currentPage === 1}
-                className="text-body-small md:text-body font-semibold px-12 md:px-16 py-8 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed hover:text-primary"
+                className="text-body-small md:text-body font-semibold px-12 cursor-pointer md:px-16 py-8 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed hover:text-primary"
                 style={{ color: currentPage === 1 ? 'rgba(255,255,255,0.4)' : 'white' }}
             >
                 Prev
@@ -52,7 +53,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
                     <button
                         key={page}
                         onClick={() => onPageChange(page)}
-                        className={`min-w-[36px] md:min-w-[40px] h-[36px] md:h-[40px] rounded font-semibold text-body-small md:text-body transition-colors ${currentPage === page
+                        className={`min-w-[36px] md:min-w-[40px] h-[36px] md:h-[40px] rounded cursor-pointer font-semibold text-body-small md:text-body transition-colors ${currentPage === page
                             ? 'bg-primary text-dark'
                             : 'bg-transparent text-white hover:bg-input'
                             }`}
@@ -65,7 +66,7 @@ export function Pagination({ currentPage, totalPages, onPageChange }: Pagination
             <button
                 onClick={handleNext}
                 disabled={currentPage === totalPages}
-                className="text-body-small md:text-body font-semibold px-12 md:px-16 py-8 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed hover:text-primary"
+                className="text-body-small md:text-body font-semibold px-12 md:px-16 py-8 rounded transition-colors disabled:opacity-40 disabled:cursor-not-allowed hover:text-primary cursor-pointer"
                 style={{ color: currentPage === totalPages ? 'rgba(255,255,255,0.4)' : 'white' }}
             >
                 Next
