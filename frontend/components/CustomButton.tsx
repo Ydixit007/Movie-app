@@ -1,5 +1,3 @@
-import React from 'react';
-
 interface ButtonProps extends React.ButtonHTMLAttributes<HTMLButtonElement> {
     variant?: 'primary' | 'secondary' | 'outline';
     children: React.ReactNode;
@@ -19,7 +17,7 @@ export function CustomButton({
 
         switch (variant) {
             case 'primary':
-                return `${baseClasses} bg-primary text-dark hover:opacity-90 ${className}`;
+                return `${baseClasses} bg-primary text-light hover:opacity-90 ${className}`;
             case 'secondary':
                 return `${baseClasses} bg-card text-white hover:bg-input ${className}`;
             case 'outline':
