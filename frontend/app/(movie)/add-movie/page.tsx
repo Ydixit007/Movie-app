@@ -168,7 +168,7 @@ export default function CreateMoviePage() {
                     </div>
 
                     {/* Right Column - Form */}
-                    <div className="flex flex-col justify-between">
+                    <div className="flex flex-col">
                         <div className="space-y-24">
                             <CustomInput
                                 placeholder="Title"

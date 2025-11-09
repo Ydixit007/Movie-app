@@ -113,7 +113,7 @@ const Home = () => {
               title={movie.movieName}
               year={formatYear(movie.publishDate)}
               imageUrl={movie.cover}
-              onClick={() => console.log('Movie clicked:', movie)}
+              onClick={() => { router.push(`/edit-movie?id=${movie._id}`) }}
               onDelete={() => { deleteMovie(movie._id) }}
             />
           ))}

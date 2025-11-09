@@ -66,11 +66,11 @@ export function ImageUpload({ onImageSelect, onImageRemove, previewUrl, error }:
     return (
         <div className="w-full">
             <div
-                className={`relative w-full aspect-[16/9] md:aspect-[4/3] rounded-lg border-2 border-dashed transition-colors cursor-pointer overflow-hidden ${isDragging
-                        ? 'border-primary bg-input'
-                        : error
-                            ? 'border-error'
-                            : 'border-white border-opacity-30 hover:border-opacity-50'
+                className={`relative w-full aspect-[16/9] md:aspect-[3/3] rounded-lg border-2 border-dashed transition-colors cursor-pointer overflow-hidden ${isDragging
+                    ? 'border-primary bg-input'
+                    : error
+                        ? 'border-error'
+                        : 'border-white border-opacity-30 hover:border-opacity-50'
                     }`}
                 onDragOver={handleDragOver}
                 onDragLeave={handleDragLeave}
